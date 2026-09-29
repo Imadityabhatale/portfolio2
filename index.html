@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditya Bhatale • Cloud & DevOps Portfolio</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts: Poppins + Inter fallback -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsl@14..32&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* light mode variables (default) */
+    body {
+      --bg-gradient: linear-gradient(145deg, #f4f7fc 0%, #eef2f6 100%);
+      --surface: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #334155;
+      --card-bg: rgba(255,255,255,0.8);
+      --card-border: rgba(0,0,0,0.05);
+      --shadow: 0 12px 30px rgba(0,0,0,0.05), 0 4px 10px rgba(0,0,0,0.02);
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --chip-bg: #e2e8f0;
+      --chip-text: #1e293b;
+      --heading-color: #0f172a;
+      --icon-color: #2563eb;
+      --footer-border: #cbd5e1;
+      transition: background 0.3s, color 0.2s;
+    }
+
+    /* dark mode overrides */
+    body.dark-mode {
+      --bg-gradient: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+      --surface: #1e293b;
+      --text-primary: #e2e8f0;
+      --text-secondary: #cbd5e1;
+      --card-bg: rgba(30, 41, 59, 0.9);
+      --card-border: rgba(255,255,255,0.05);
+      --shadow: 0 12px 30px rgba(0,0,0,0.5);
+      --accent: #3b82f6;
+      --accent-soft: #1e3a5f;
+      --chip-bg: #334155;
+      --chip-text: #f1f5f9;
+      --heading-color: #f8fafc;
+      --icon-color: #60a5fa;
+      --footer-border: #334155;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    /* glassmorphism cards */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--card-border);
+      border-radius: 2rem;
+      padding: 1.8rem 2rem;
+      box-shadow: var(--shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 35px rgba(0,0,0,0.1);
+    }
+
+    h1, h2, h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: var(--heading-color);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.9rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--heading-color);
+    }
+
+    h2 i {
+      color: var(--icon-color);
+      font-size: 2rem;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      color: var(--heading-color);
+    }
+
+    .header-flex {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.8rem;
+      margin: 0.5rem 0 1.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .contact-info a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: color 0.2s;
+    }
+
+    .contact-info a:hover {
+      color: var(--accent);
+    }
+
+    .contact-info i {
+      color: var(--icon-color);
+      width: 1.4rem;
+      font-size: 1.3rem;
+    }
+
+    /* theme toggle button */
+    #theme-toggle {
+      background: var(--chip-bg);
+      border: none;
+      border-radius: 4rem;
+      width: 3.2rem;
+      height: 3.2rem;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    #theme-toggle:hover {
+      background: var(--accent-soft);
+      transform: scale(1.05);
+    }
+
+    /* chips / tags */
+    .skill-tags, .interest-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .tag {
+      background: var(--chip-bg);
+      color: var(--chip-text);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.1s;
+      border: 1px solid transparent;
+    }
+
+    .tag i {
+      color: var(--icon-color);
+      font-size: 0.9rem;
+    }
+
+    .badge-progress {
+      background: var(--accent);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.25rem 0.9rem;
+      border-radius: 30px;
+      margin-left: 1rem;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    /* education list */
+    .edu-item {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.4rem;
+      border-bottom: 1px dashed var(--card-border);
+      padding-bottom: 1rem;
+    }
+    .edu-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .edu-year {
+      min-width: 100px;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .edu-desc {
+      flex: 1;
+    }
+    .edu-desc strong {
+      font-weight: 600;
+      color: var(--heading-color);
+    }
+    .edu-desc .detail {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    /* project cards grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 1.6rem;
+      padding: 1.6rem 1.6rem 1.8rem;
+      border: 1px solid var(--card-border);
+      box-shadow: var(--shadow);
+      transition: all 0.2s;
+    }
+
+    .project-card:hover {
+      background: var(--surface);
+    }
+
+    .project-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-title i {
+      color: var(--icon-color);
+      font-size: 1.8rem;
+    }
+
+    .project-title h3 {
+      margin-bottom: 0;
+      font-size: 1.4rem;
+    }
+
+    .project-desc {
+      color: var(--text-secondary);
+      font-size: 0.98rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    /* layout spacing */
+    .section {
+      margin-bottom: 3rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    /* footer */
+    .footer {
+      margin-top: 3rem;
+      text-align: center;
+      padding: 2rem 0 0.5rem;
+      border-top: 1px solid var(--footer-border);
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* responsive touches */
+    @media (max-width: 600px) {
+      body { padding: 1.5rem 1rem; }
+      h1 { font-size: 2.2rem; }
+      .header-flex { flex-direction: column; align-items: start; gap: 0.8rem; }
+      .contact-info { flex-direction: column; gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header with name & theme toggle -->
+    <div class="header-flex">
+      <div><h1>Aditya Bhatale</h1><p style="color: var(--accent); font-weight: 600; margin-top: 0.25rem;">Cloud & DevOps Enthusiast</p></div>
+      <button id="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
+
+    <!-- Contact row (email & phone) -->
+    <div class="contact-info">
+      <a href="mailto:bhataleaditya73@gmail.com"><i class="fas fa-envelope"></i> bhataleaditya73@gmail.com</a>
+      <a href="tel:+918669697006"><i class="fas fa-phone-alt"></i> +91-8669697006</a>
+    </div>
+
+    <!-- Objective / About section -->
+    <section class="section card">
+      <h2><i class="fas fa-bullseye"></i> Objective</h2>
+      <p style="font-size: 1.08rem; max-width: 900px;">Aspiring Cloud and DevOps professional with a strong foundation in programming and hands-on learning in AWS cloud fundamentals, Linux, Git/GitHub, and Docker. Passionate about cloud technologies, automation, deployment, monitoring, and reliable infrastructure. Eager to contribute to a technology-driven organization, continuously develop technical expertise, and apply practical knowledge to real-world projects while growing within the Cloud and DevOps domain.
+</p>
+    </section>
+
+    <!-- Skills + certifications side by side on larger screens -->
+    <div class="grid-2 section">
+      <!-- Skills card -->
+      <div class="card">
+        <h2><i class="fas fa-code"></i> Skills</h2>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">🌐 Web Technologies</h3>
+          <div class="skill-tags">
+            <span class="tag"><i class="fab fa-html5"></i> HTML</span>
+            <span class="tag"><i class="fab fa-css3-alt"></i> CSS</span>
+            <span class="tag"><i class="fab fa-js"></i> JavaScript</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">☁️ Cloud</h3>
+          <div class="skill-tags">
+            <span class="tag"><i class="fab fa-aws"></i> AWS Fundamentals</span>
+            <span class="tag"><i class="fas fa-server"></i> EC2</span>
+            <span class="tag"><i class="fas fa-database"></i> S3</span>
+            <span class="tag"><i class="fas fa-user-shield"></i> IAM Basics</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">⚙️ DevOps & Tools</h3>
+          <div class="skill-tags">
+            <span class="tag"><i class="fab fa-git-alt"></i> Git</span>
+            <span class="tag"><i class="fab fa-github"></i> GitHub</span>
+            <span class="tag"><i class="fab fa-docker"></i> Docker</span>
+            <span class="tag"><i class="fas fa-terminal"></i> Linux CLI</span>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 1.5rem;">
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">🐍 Programming & Data</h3>
+          <div class="skill-tags">
+            <span class="tag"><i class="fab fa-python"></i> Python</span>
+            <span class="tag"><i class="fas fa-database"></i> SQL / MySQL</span>
+          </div>
+        </div>
+
+        <div>
+          <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem;">🧠 Behavioral</h3>
+          <div class="skill-tags">
+            <span class="tag"><i class="fas fa-users"></i> Leadership</span>
+            <span class="tag"><i class="fas fa-people-group"></i> Team Collaboration</span>
+            <span class="tag"><i class="fas fa-arrows-rotate"></i> Adaptability</span>
+            <span class="tag"><i class="fas fa-bolt"></i> Quick Learner</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trainings / certifications card -->
+      <div class="card">
+        <h2><i class="fas fa-certificate"></i> Certifications</h2>
+        <div class="skill-tags" style="margin-top: 0.8rem;">
+          <span class="tag"><i class="fab fa-python"></i> Python</span>
+          <span class="tag"><i class="fas fa-database"></i> SQL</span>
+          <span class="tag"><i class="fas fa-database"></i> Power BI</span>
+        </div>
+        <p style="margin-top: 1.2rem; color: var(--text-secondary);"><i class="fas fa-clock" style="margin-right: 0.5rem;"></i>Trainings completed in Python & SQL.</p>
+      </div>
+    </div>
+
+    <!-- Education section -->
+    <section class="section card">
+      <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+      <div class="edu-item">
+        <div class="edu-year">2026 </div>
+        <div class="edu-desc"><strong>M.Sc. (Computer Science)</strong> – Shivaji University, Kolhapur <span class="detail">CGPA : 8.8</span> </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2024</div>
+        <div class="edu-desc"><strong>BCA</strong> – Shahaji College, Kolhapur <span class="detail">CGPA : 7.13</span></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2021</div>
+        <div class="edu-desc"><strong>ITI</strong> – Government ITI, Kolhapur <span class="detail">Percentage : 72.21%</span></div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2018</div>
+        <div class="edu-desc"><strong>SSC (10th)</strong> – Maharashtra State Board <span class="detail">Percentage : 75.40%</span></div>
+      </div>
+    </section>
+
+    <!-- Projects section (2 projects) -->
+    <section class="section">
+      <h2 style="margin-bottom: 1rem;"><i class="fas fa-laptop-code"></i> Projects</h2>
+      <div class="projects-grid">
+        <!-- Calculator project -->
+        <div class="project-card">
+          <div class="project-title">
+            <i class="fas fa-calculator"></i>
+            <h3>Calculator</h3>
+          </div>
+          <div class="project-desc">Built a desktop calculator application using Python and Tkinter with a graphical user interface. Supports addition, subtraction, multiplication, and division, with a clean and user-friendly interface focused on smooth interaction.</div>
+          <div class="project-meta">
+            <span class="tag"><i class="fab fa-python"></i> Python</span>
+            <span class="tag"><i class="fas fa-window-maximize"></i> Tkinter</span>
+          </div>
+        </div>
+
+        <!-- Car Damage Detection (in working) -->
+        <div class="project-card">
+          <div class="project-title">
+            <i class="fas fa-car-crash"></i>
+            <h3>Car Damage Detection </h3>
+          </div>
+          <div class="project-desc">Building an ML-based system to detect car damage from images using YOLO/ML models. Preprocessing image datasets and training models for damage classification. This project is currently in progress.</div>
+          <div class="project-meta">
+            <span class="tag"><i class="fab fa-python"></i> Python</span>
+            <span class="tag"><i class="fas fa-brain"></i> YOLO</span>
+            <span class="tag"><i class="fas fa-chart-line"></i> ML</span>
+          </div>
+        </div>
+        
+          
+         
+
+      </div>
+    </section>
+
+    <!-- Interests / Hobbies -->
+    <section class="section card">
+      <h2><i class="fas fa-heart"></i> Interests & Hobbies</h2>
+      <div class="interest-tags">
+        <span class="tag"><i class="fas fa-car"></i> Driving</span>
+        <span class="tag"><i class="fas fa-baseball-ball"></i> Cricket</span>
+      </div>
+    </section>
+
+    <!-- simple footer -->
+    <div class="footer">
+      <p>© 2026 Aditya Bhatale – Cloud & DevOps Portfolio • Built with HTML, CSS & JavaScript <i class="fas fa-code"></i></p>
+    </div>
+  </div>
+
+  <!-- JavaScript: dark mode toggle & icon swap -->
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('theme-toggle');
+      const icon = toggleBtn.querySelector('i');
+      const body = document.body;
+
+      // check local storage for theme preference
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        body.classList.remove('dark-mode');
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+
+      toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        
+        // swap icon
+        if (body.classList.contains('dark-mode')) {
+          icon.classList.remove('fa-moon');
+          icon.classList.add('fa-sun');
+          localStorage.setItem('theme', 'dark');
+        } else {
+          icon.classList.remove('fa-sun');
+          icon.classList.add('fa-moon');
+          localStorage.setItem('theme', 'light');
+        }
+      });
+    })();
+  </script>
+
+  <!-- small additional interaction: console greeting (shows JS is alive) -->
+  <script>
+    console.log("🚀 Aditya's portfolio — thanks for stopping by!");
+  </script>
+</body>
+</html>
